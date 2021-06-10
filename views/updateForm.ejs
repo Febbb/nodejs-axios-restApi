@@ -1,0 +1,50 @@
+<div class="modal-dialog" role="document">
+    <div id="modal-body" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">update data laporan - <%= result['id_laporan'] %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form method="post"   action="http://localhost:3010/portofolio/index">
+  <div class="form-row">
+
+    <input type="hidden" name="id" value="<%= result['id_laporan'] %>">
+
+  	<div class="form-group col-md-6">
+      <label for="nama">Nama</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="Nama">
+    </div>
+     <div class="form-group col-md-6">
+      <label for="exampleFormControlSelect1">Status</label>
+      <select class="form-control" name="status" id="exampleFormControlSelect1">
+        <option>done</option>
+        <option>pending</option>
+        <option>failure</option>
+       
+      </select>
+    </div>
+    
+  </div>
+
+ <div class="form-row">
+
+  	<div class="form-group col-md-12">
+      <label for="nama">Keterangan</label>
+      <!-- <input type="text" class="form-control" id="inputPassword4" placeholder="Keterangan"> -->
+      <textarea class="form-control" id="inputPassword4" rows="5" placeholder="Pesan...."></textarea>
+    </div>
+    
+  </div> 
+
+  	
+  <button type="submit" class="btn btn-primary ">Kirim</button>
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Report !</title>
+	<link rel="shortcut icon" href="/assets/img/work.png">
+
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.css"  >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="/js/jquery-3.6.0.js"  ></script>
+	<script type="text/javascript" src="/socket.io/socket.io.js "></script>
+ 	<script src="/js/chat.js"  ></script>
+ 
+ 
+
+
+   
+	
+</head>
+<body>
+	
+<div class="container-fluid">
+	<div class="row justify-content-center">
+		<div class="col-lg-7 mt-4">
+			<div class="jumbotron">
+				<div class="alert alert-info" role="alert">
+				  ** Pastikan local server aktif dan terhubung :) !
+				</div>
+		
+				<hr>	
+					<form method="post" action="http://localhost:3010/store">
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Nama</label>
+		    <input type="text" class="form-control" id="exampleInputEmail1" name="nama" aria-describedby="emailHelp">
+		    <small id="emailHelp" class="form-text text-muted">masukan nama anda pada laporan</small>
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">Keterangan</label>
+		    <input type="text" name="keterangan" class="form-control" id="exampleInputPassword1">
+		     <small id="emailHelp" class="form-text text-muted">keterangan laporan perbaikan</small>
+		  </div>
+		 <div class="form-group">
+	    <label for="exampleFormControlSelect1">Status</label>
+	    <select class="form-control" name="status" id="exampleFormControlSelect1">
+	      <option>done</option>
+	      <option>pending</option>
+	      <option>failure</option>
+	     
+	    </select>
+	  </div>
+
+		  <button type="submit" class="btn btn-primary">tambah</button>
+		</form>
+
+		<hr>	
+				<div id="messege-list">
+					
+					 
+
+					 <table class="table table-dark">
+					  <thead class="thead-light">
+					    <tr>
+					      <th scope="col">ID</th>
+					      <th scope="col">Nama</th>
+					      <th scope="col">Keterangan</th>
+					      <th scope="col">Status</th>
+					      <th scope="col">action</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  <% data.forEach(function (result){ %> 	
+					    <tr>
+					      <th scope="row"><%= result['id_laporan'] %></th>
+					      <td><%= result['nama'] %></td>
+					      <td><%= result['keterangan'] %></td>
+					      <td><%= result['status'] %></td>
+					      <td><a href="http://localhost:3010/destroy/<%= result['id_laporan'] %>"><img src="/assets/img/delete.png" style="height: 30px; width: 30px;"> </a> 
+					      	<a  href="#" data-toggle="modal" data-target="#modal-update" href="http://localhost:3010/update/<%= result['id_laporan'] %>"><img src="/assets/img/create.png" style="height: 30px; width: 30px;"></a></td>
+
+					      	<!-- Modal -->
+								<div class="modal fade" id="modal-update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  									<div class="modal-dialog" role="document">
+								    <div id="modal-body" class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="exampleModalLabel">update data laporan - <%= result['id_laporan'] %></h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body">
+								       <form method="post"  action="http://localhost:3010/update/<%= result['id_laporan'] %>?_method=PUT">
+								  <div class="form-row">
+
+								    <input type="hidden" name="id_laporan" value="<%= result['id_laporan'] %>">
+
+								  	<div class="form-group col-md-6">
+								      <label for="nama">Nama</label>
+								      <input name="nama" type="text" class="form-control" id="inputPassword4" placeholder="Nama"
+								       value="<%= result['nama'] %>">
+								    </div>
+								     <div class="form-group col-md-6">
+								      <label for="exampleFormControlSelect1">Status</label>
+								      <select name="status" class="form-control" name="status" id="exampleFormControlSelect1">
+								        <option>done</option>
+								        <option>pending</option>
+								        <option>failure</option>
+								       
+								      </select>
+								    </div>
+								    
+								  </div>
+
+								 <div class="form-row">
+
+								  	<div class="form-group col-md-12">
+								      <label for="nama">Keterangan</label>
+								      <!-- <input type="text" class="form-control" id="inputPassword4" placeholder="Keterangan"> -->
+								      <textarea name="keterangan" class="form-control" id="inputPassword4" rows="5" placeholder="Pesan...."><%= result['keterangan'] %></textarea>
+								    </div>
+								    
+								  </div> 
+
+								  	
+								  <button type="submit" class="btn btn-primary ">update</button>
+								</form>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								        
+								      </div>
+								    </div>
+								  </div>
+								</div>
+							<!-- close modal -->
+					    </tr>
+					   <% }) %>
+
+					  </tbody>
+					</table>
+				
+					 
+				</div>
+
+				<hr>
+
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<script src="/js/jquery-3.6.0.js"  ></script>
+<script src="/js/popper.js"  ></script>
+<script src="/bootstrap/js/bootstrap.js" ></script>	
+<script src="/bootstrap/js/bootstrap.bundle.min.js"  ></script>	
+</body>
+</html>
